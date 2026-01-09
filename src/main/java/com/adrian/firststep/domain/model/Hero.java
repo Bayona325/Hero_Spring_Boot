@@ -1,30 +1,35 @@
 package com.adrian.firststep.domain.model;
-
+//import java.util.ArrayList;
 import java.util.List;
-import java.util.ArrayList;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 public class Hero {
-    private String nombre;
-    private int nivel;
+    private String name;
+    private int level;
     private List<Skill> skills;
     private IArma arma;
 
-    public Hero(List<Skill> skills) {
-        skills = new ArrayList<>();
+    public Hero(List<Skill> skills, IArma arma) {
+        this.skills = skills;
+        this.arma = arma;
+    }
+
+    public Hero(String nombre, int nivel, List<Skill> skills) {
+        this.name = nombre;
+        this.level = nivel;
         arma = null;
     }
 
-    public Hero(String nombre, int nivel) {
-        this.nombre = nombre;
-        this.nivel = nivel;
-    }
-
     public void equipar(IArma arma) {
-        
+        this.arma = arma;
     }
 
+    public void atacar() {
+        arma.atacar();
+    }
+    
 }

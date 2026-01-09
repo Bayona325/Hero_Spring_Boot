@@ -2,28 +2,30 @@ package com.adrian.firststep.infrastructure.controller;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.adrian.firststep.domain.model.Hero;
 import com.adrian.firststep.infrastructure.mapper.HeroRequest;
 import com.adrian.firststep.infrastructure.mapper.HeroResponse;
 
-import jakarta.websocket.server.PathParam;
-
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 @RequestMapping(path = "api/v1", produces = {MediaType.APPLICATION_JSON_VALUE})
 public class HelloWorldController {
+
+    private Hero hero;
+
+    public HelloWorldController(Hero hero) {
+        this.hero = hero;
+    }
     
     @GetMapping("/greetings")
     public String holaMundo(@RequestParam(name = "name", defaultValue = "Ponscia") String nombre) {
@@ -43,23 +45,26 @@ public class HelloWorldController {
     public HeroResponse crearEntidad(@RequestBody HeroRequest request) {
         
         //alias
+        if(request.alias().isEmpty()) {
+            throw new IllegalArgumentException("Los campos no pueden ser nulos");
+        }
 
         //procesar - Bussines
-
+        /* Skill skill = new Skill();
+        skill.setDamage(10);
+        skill.setName("Inicial");
+        List<Skill> skills = List.of(skill, skill);
+        Hero newHero = new Hero(skills);
+        newHero.setName(request.alias());
+        newHero.setLevel(1); */
         //la respuesta
-
-        return new HeroResponse(, LocalDateTime.now());
+        hero.atacar();
+        return new HeroResponse(hero.getName(), hero.getLevel(), LocalDateTime.now());
     }
+
     
-    @PostMapping(path = "/actualizar", consumes = {"application/json-patch+json"})
-    public Hero actualizarEntidad(@RequestBody(required = false) Hero hero) {
-        
-        return new Hero(hero.getNombre(), hero.getNivel());
-    }
 
-    @PutMapping(path = "/hero/{id}/actualizar", consumes = {"application/json-patch+json"})
-    public Map<String, Object> actualizarPorId(@RequestBody(required = false) Hero hero, @PathVariable(name = "id") String heroId) {
-        return Map.of("hero", new Hero(hero.getNombre(), hero.getNivel()), "id", heroId);
-    }
-
+    
+    
+    
 }

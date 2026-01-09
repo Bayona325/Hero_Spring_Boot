@@ -1,5 +1,5 @@
 package com.adrian.firststep.domain.model;
 
-public class IArma {
-    
+public interface IArma {
+    public void atacar();
 }

@@ -9,5 +9,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Skill {
     private String name;
-    private float damage;
+    private  float damage;
 }
