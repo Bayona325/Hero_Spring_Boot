@@ -27,4 +27,13 @@ public class SkillConfig {
         hero.setName("Son ponscio");
         return hero;
     }
+
+    /*
+    @Bean
+    public Hero heroDamage(List<Skill> skills, @Qualifier("rifleFrancotirador") IArma arma) {
+        Hero hero = new Hero(skills, arma);
+        hero.setName("Son ponscio");
+        return hero;
+    }
+    */
 }
